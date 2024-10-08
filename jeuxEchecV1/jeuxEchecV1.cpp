@@ -28,7 +28,7 @@ int main()
 
 		// Efface l'écran
 		#ifdef _WIN32
-				system("cls");  // Pour Windows
+				//system("cls");  // Pour Windows
 		#else
 				system("clear");  // Pour Linux/macOS
 		#endif
@@ -37,6 +37,12 @@ int main()
 
 		board.move();
 	}
+
+#ifdef _DEBUG
+
+	_CrtDumpMemoryLeaks();
+
+#endif
 
 	return 0;
 }
