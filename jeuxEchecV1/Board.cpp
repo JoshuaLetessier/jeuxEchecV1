@@ -207,121 +207,8 @@ void Board::move()
 
 		int yArr = letterToNumber(coordArr[0]);
 		int xArr = 8 - (coordArr[1] - '0');
-
-
-		// Vérifie si la case de départ contient une pièce
-		if (board[xDep][yDep] == nullptr) {
-			VERSION_LOG("Il n'y a pas de pièce à cet emplacement!");
-			continue;
-		}
-
-		// Vérifie si la case d'arrivée contient une pièce de la même couleur
-		if (board[xArr][yArr] != nullptr && board[xDep][yDep]->getColor() == board[xArr][yArr]->getColor()) {
-			VERSION_LOG("Vous ne pouvez pas déplacer votre pièce sur une case occupée par une de vos pièces!");
-			continue;
-		}
-
-		//Verifie si une piece n'est pas sur le chemin
-		bool isPieceOnTheWay = false;
-		//Mouvement vertical
-		if (xDep == xArr) {
-			if (yDep < yArr) {
-				for (int i = yDep + 1; i < yArr; i++) {
-					if (board[xDep][i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-			else {
-				for (int i = yDep - 1; i > yArr; i--) {
-					if (board[xDep][i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-		}
-		//Movement horizontal
-		else if (yDep == yArr) {
-			if (xDep < xArr) {
-				for (int i = xDep + 1; i < xArr; i++) {
-					if (board[i][yDep] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-			else {
-				for (int i = xDep - 1; i > xArr; i--) {
-					if (board[i][yDep] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-		}
-		//Movement diagonal
-		else if (abs(xDep - xArr) == abs(yDep - yArr)) {
-			if (xDep < xArr && yDep < yArr) {
-				for (int i = 1; i < abs(xDep - xArr); i++) {
-					if (board[xDep + i][yDep + i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-			else if (xDep < xArr && yDep > yArr) {
-				for (int i = 1; i < abs(xDep - xArr); i++) {
-					if (board[xDep + i][yDep - i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						isPieceOnTheWay = true;
-						continue;
-					}
-				}
-			}
-			else if (xDep > xArr && yDep < yArr) {
-				for (int i = 1; i < abs(xDep - xArr); i++) {
-					if (board[xDep - i][yDep + i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						continue;
-					}
-				}
-			}
-			else {
-				for (int i = 1; i < abs(xDep - xArr); i++) {
-					if (board[xDep - i][yDep - i] != nullptr) {
-						VERSION_LOG("Il y a une pièce sur le chemin!");
-						continue;
-					}
-				}
-			}
-		}
-		else {
-			VERSION_LOG("Il y a une pièce sur le chemin!");
-			continue;
-		}
-
-		if (isPieceOnTheWay) {
-			continue;
-		}
-
-		// Vérifie si la case de départ est la même que la case d'arrivée
-		if (xDep == xArr && yDep == yArr) {
-			VERSION_LOG("Vous devez déplacer la pièce à un autre emplacement!");
-			continue;
-		}
-
-		// Vérifie si les coordonnées sont valides
-		if (xDep < 0 || xDep > 7 || yDep < 0 || yDep > 7 || xArr < 0 || xArr > 7 || yArr < 0 || yArr > 7) {
-			VERSION_LOG("Coordonnées invalides!");
-			continue;
-		}
+		
+		if (!testMoveGeneral(xDep, yDep, xArr, yArr)) continue;
 
 		// Vérifie si le déplacement est valide
 		if (!board[xDep][yDep]->isValidMove(xDep, yDep, xArr, yArr)) {
@@ -337,6 +224,125 @@ void Board::move()
 			isGoodMove = true;
 		}
 	}
+}
+
+bool Board::testMoveGeneral(int xDep, int yDep, int xArr, int yArr)
+{
+	// Vérifie si la case de départ contient une pièce
+	if (board[xDep][yDep] == nullptr) {
+		VERSION_LOG("Il n'y a pas de pièce à cet emplacement!");
+		return false;;
+	}
+
+	// Vérifie si la case d'arrivée contient une pièce de la même couleur
+	if (board[xArr][yArr] != nullptr && board[xDep][yDep]->getColor() == board[xArr][yArr]->getColor()) {
+		VERSION_LOG("Vous ne pouvez pas déplacer votre pièce sur une case occupée par une de vos pièces!");
+		return false;;
+	}
+
+	//Verifie si une piece n'est pas sur le chemin
+	bool isPieceOnTheWay = false;
+	//Mouvement vertical
+	if (xDep == xArr) {
+		if (yDep < yArr) {
+			for (int i = yDep + 1; i < yArr; i++) {
+				if (board[xDep][i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+		else {
+			for (int i = yDep - 1; i > yArr; i--) {
+				if (board[xDep][i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+	}
+	//Movement horizontal
+	else if (yDep == yArr) {
+		if (xDep < xArr) {
+			for (int i = xDep + 1; i < xArr; i++) {
+				if (board[i][yDep] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+		else {
+			for (int i = xDep - 1; i > xArr; i--) {
+				if (board[i][yDep] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+	}
+	//Movement diagonal
+	else if (abs(xDep - xArr) == abs(yDep - yArr)) {
+		if (xDep < xArr && yDep < yArr) {
+			for (int i = 1; i < abs(xDep - xArr); i++) {
+				if (board[xDep + i][yDep + i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+		else if (xDep < xArr && yDep > yArr) {
+			for (int i = 1; i < abs(xDep - xArr); i++) {
+				if (board[xDep + i][yDep - i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					isPieceOnTheWay = true;
+					continue;
+				}
+			}
+		}
+		else if (xDep > xArr && yDep < yArr) {
+			for (int i = 1; i < abs(xDep - xArr); i++) {
+				if (board[xDep - i][yDep + i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					continue;
+				}
+			}
+		}
+		else {
+			for (int i = 1; i < abs(xDep - xArr); i++) {
+				if (board[xDep - i][yDep - i] != nullptr) {
+					VERSION_LOG("Il y a une pièce sur le chemin!");
+					continue;
+				}
+			}
+		}
+	}
+	else {
+		VERSION_LOG("Il y a une pièce sur le chemin!");
+		return false;;
+	}
+
+	if (isPieceOnTheWay) {
+		return false;;
+	}
+
+	// Vérifie si la case de départ est la même que la case d'arrivée
+	if (xDep == xArr && yDep == yArr) {
+		VERSION_LOG("Vous devez déplacer la pièce à un autre emplacement!");
+		return false;;
+	}
+
+	// Vérifie si les coordonnées sont valides
+	if (xDep < 0 || xDep > 7 || yDep < 0 || yDep > 7 || xArr < 0 || xArr > 7 || yArr < 0 || yArr > 7) {
+		VERSION_LOG("Coordonnées invalides!");
+		return false;
+	}
+
+	return true;
 }
 
 int Board::letterToNumber(char letter)

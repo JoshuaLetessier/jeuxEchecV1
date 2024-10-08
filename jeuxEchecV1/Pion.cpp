@@ -19,6 +19,7 @@ bool Pion::isValidMove(int xDep, int yDep, int xArr, int yArr)
         return true;
     }
 
+	// Mouvement en diagonale pour manger une pièce
     if (xArr == xDep + direction && (yArr == yDep + 1 || yArr == yDep - 1) ){
 		return true;
     }
