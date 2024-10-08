@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jeuxEchecV1", "jeuxEchecV1\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		_CONSOLE|x64 = _CONSOLE|x64
+		_CONSOLE|x86 = _CONSOLE|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Demo|x64 = Demo|x64
@@ -17,6 +19,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}._CONSOLE|x64.ActiveCfg = _CONSOLE|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}._CONSOLE|x64.Build.0 = _CONSOLE|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}._CONSOLE|x86.ActiveCfg = _CONSOLE|Win32
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}._CONSOLE|x86.Build.0 = _CONSOLE|Win32
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x64.ActiveCfg = Debug|x64
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x64.Build.0 = Debug|x64
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x86.ActiveCfg = Debug|Win32

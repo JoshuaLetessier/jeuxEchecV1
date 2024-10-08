@@ -11,11 +11,15 @@
 	#define VERSION_LOG
 #endif VERSION_LIGHT
 
-#ifdef VERSION_LOG
+#ifdef VERSION_CONSOLE
 	#define VERSION_LOG(message)			std::cout << message << std::endl
 #else
 	#define VERSION_LOG(message)
 #endif
+
+
+
+
 
 
 
