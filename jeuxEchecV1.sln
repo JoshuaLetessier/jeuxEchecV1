@@ -9,6 +9,10 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Demo|x64 = Demo|x64
+		Demo|x86 = Demo|x86
+		LIGHT|x64 = LIGHT|x64
+		LIGHT|x86 = LIGHT|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -17,6 +21,14 @@ Global
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x64.Build.0 = Debug|x64
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x86.ActiveCfg = Debug|Win32
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Debug|x86.Build.0 = Debug|Win32
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Demo|x64.ActiveCfg = Demo|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Demo|x64.Build.0 = Demo|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Demo|x86.ActiveCfg = Demo|Win32
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Demo|x86.Build.0 = Demo|Win32
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.LIGHT|x64.ActiveCfg = LIGHT|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.LIGHT|x64.Build.0 = LIGHT|x64
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.LIGHT|x86.ActiveCfg = LIGHT|Win32
+		{039238A9-9B63-4749-B5D6-E8AA837B1914}.LIGHT|x86.Build.0 = LIGHT|Win32
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Release|x64.ActiveCfg = Release|x64
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Release|x64.Build.0 = Release|x64
 		{039238A9-9B63-4749-B5D6-E8AA837B1914}.Release|x86.ActiveCfg = Release|Win32

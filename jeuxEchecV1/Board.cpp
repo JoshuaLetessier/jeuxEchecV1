@@ -1,13 +1,14 @@
 #include "Board.h"
 #include <iostream>
 #include <string>
-#include <string>
 #include "Pion.h"
 #include "Tour.h"
 #include "Cavalier.h"
 #include "Fou.h"
 #include "Reine.h"
 #include "Roi.h"
+
+#include "Define.h"
 
 
 Board::Board()
@@ -16,57 +17,100 @@ Board::Board()
 
 Board::~Board()
 {
+	for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			delete board[y][x];  // Libère la mémoire pour chaque pièce
+		}
+	}
 }
 
 void Board::initBoard()
 {
-    // Initialisation des pions blancs
-    for (int i = 0; i < 8; i++) {
-        Pion* pion = new Pion();
-        board[1][i] = pion;
-        board[1][i]->setColor('B');
-    }
+	std::cout << "oh" << std::endl;
+#ifdef VERSION_LIGHT
+	std::cout << "Version li" << std::endl;
+	// Initialisation des pions blancs
+	for (int i = 0; i < 8; i++) {
+		Pion* pion = new Pion();
+		board[1][i] = pion;
+		board[1][i]->setColor('B');
+	}
+	// Initialisation des pions noirs
+	for (int i = 0; i < 8; i++) {
+		Pion* pion = new Pion();
+		board[6][i] = pion;  // Correctement placé en rangée 6 pour les pions noirs
+		board[6][i]->setColor('N');
+	}
 
-    // Initialisation des pions noirs
-    for (int i = 0; i < 8; i++) {
-        Pion* pion = new Pion();
-        board[6][i] = pion;  // Correctement placé en rangée 6 pour les pions noirs
-        board[6][i]->setColor('N');
-    }
+	// Initialisation des tours blancs
+	for (int i = 0; i < 8; i++) {
+		Tour* tour = new Tour();
+		board[0][i] = tour;
+		board[0][i]->setColor('B');
+	}
+	// Initialisation des tours noirs
+	for (int i = 0; i < 8; i++) {
+		Tour* tour = new Tour();
+		board[7][i] = tour;  // Correctement placé en rangée 6 pour les pions noirs
+		board[7][i]->setColor('N');
+	}
 
-    // Initialisation des tours blanches
-    Tour* tourB1 = new Tour();
-    board[0][0] = tourB1;
-    board[0][0]->setColor('B');
+	for (int y = 2; y < 6; y++) {
+		for (int x = 0; x < 8; x++) {
+			board[y][x] = nullptr;
+		}
+	}
 
-    Tour* tourB2 = new Tour();
-    board[0][7] = tourB2;  // Position correcte pour la deuxième tour
-    board[0][7]->setColor('B');
 
-    // Initialisation des tours noires
-    Tour* tourN1 = new Tour();
-    board[7][0] = tourN1;  // Position correcte pour la première tour noire
-    board[7][0]->setColor('N');
 
-    Tour* tourN2 = new Tour();
-    board[7][7] = tourN2;  // Position correcte pour la deuxième tour noire
-    board[7][7]->setColor('N');
+#else 
+	// Initialisation des pions blancs
+	for (int i = 0; i < 8; i++) {
+		Pion* pion = new Pion();
+		board[1][i] = pion;
+		board[1][i]->setColor('B');
+	}
+
+	// Initialisation des pions noirs
+	for (int i = 0; i < 8; i++) {
+		Pion* pion = new Pion();
+		board[6][i] = pion;  // Correctement placé en rangée 6 pour les pions noirs
+		board[6][i]->setColor('N');
+	}
+
+	// Initialisation des tours blanches
+	Tour* tourB1 = new Tour();
+	board[0][0] = tourB1;
+	board[0][0]->setColor('B');
+
+	Tour* tourB2 = new Tour();
+	board[0][7] = tourB2;  // Position correcte pour la deuxième tour
+	board[0][7]->setColor('B');
+
+	// Initialisation des tours noires
+	Tour* tourN1 = new Tour();
+	board[7][0] = tourN1;  // Position correcte pour la première tour noire
+	board[7][0]->setColor('N');
+
+	Tour* tourN2 = new Tour();
+	board[7][7] = tourN2;  // Position correcte pour la deuxième tour noire
+	board[7][7]->setColor('N');
 
 	// Initialisation des cavaliers 'B's
 	Cavalier* cavalierB1 = new Cavalier();
-    board[0][1] = cavalierB1;
-    board[0][1]->setColor('B');
+	board[0][1] = cavalierB1;
+	board[0][1]->setColor('B');
 
-    Cavalier* cavalierB2 = new Cavalier();
-    board[0][6] = cavalierB2;  // Position correcte pour le deuxième cavalier 'B'
-    board[0][6]->setColor('B');
+	Cavalier* cavalierB2 = new Cavalier();
+	board[0][6] = cavalierB2;  // Position correcte pour le deuxième cavalier 'B'
+	board[0][6]->setColor('B');
 
-    // Initialisation des cavaliers noirs
-    Cavalier* cavalierN1 = new Cavalier();
-    board[7][1] = cavalierN1;  // Position correcte pour le premier cavalier noir
-    board[7][1]->setColor('N');
+	// Initialisation des cavaliers noirs
+	Cavalier* cavalierN1 = new Cavalier();
+	board[7][1] = cavalierN1;  // Position correcte pour le premier cavalier noir
+	board[7][1]->setColor('N');
 
-    Cavalier* cavalierN2 = new Cavalier();
+	Cavalier* cavalierN2 = new Cavalier();
 	board[7][6] = cavalierN2;  // Position correcte pour le deuxième cavalier noir
 	board[7][6]->setColor('N');
 
@@ -112,132 +156,153 @@ void Board::initBoard()
 			board[y][x] = nullptr;
 		}
 	}
+
+#endif // VERSION_LIGHT
 }
 
 void Board::displayBoard()
 {
-    // Affiche les coordonnées des colonnes
-    std::cout << "  a b c d e f g h" << std::endl;
-    std::cout << "  ----------------" << std::endl;
+	// Affiche les coordonnées des colonnes
+	std::cout << "  a b c d e f g h" << std::endl;
+	std::cout << "  ----------------" << std::endl;
 
-    for (int y = 0; y < 8; y++) {
-        std::cout << 8 - y << "|";  // Affiche les numéros des lignes
+	for (int y = 0; y < 8; y++) {
+		std::cout << 8 - y << "|";  // Affiche les numéros des lignes
 
-        for (int x = 0; x < 8; x++) {
-            if (board[y][x] != nullptr) {
-                // Appelle la méthode virtuelle getPieceSymbol pour obtenir le symbole de la pièce
-                std::cout << board[y][x]->getPieceSymbol();
-            }
-            else {
-                // Si la case est vide
-                std::cout << ".";
-            }
-            std::cout << " ";  // Ajoute un espace entre les symboles
-        }
+		for (int x = 0; x < 8; x++) {
+			if (board[y][x] != nullptr) {
+				// Appelle la méthode virtuelle getPieceSymbol pour obtenir le symbole de la pièce
+				std::cout << board[y][x]->getPieceSymbol();
+			}
+			else {
+				// Si la case est vide
+				std::cout << ".";
+			}
+			std::cout << " ";  // Ajoute un espace entre les symboles
+		}
 
-        std::cout << "|" << 8 - y << std::endl;  // Affiche les numéros des lignes à droite
-    }
+		std::cout << "|" << 8 - y << std::endl;  // Affiche les numéros des lignes à droite
+	}
 
-    std::cout << "  ----------------" << std::endl;
-    std::cout << "  a b c d e f g h" << std::endl;  // Affiche les lettres des colonnes
+	std::cout << "  ----------------" << std::endl;
+	std::cout << "  a b c d e f g h" << std::endl;  // Affiche les lettres des colonnes
 }
 
 void Board::move()
 {
-    std::cout << "Entrez les coordonnées de la pièce à déplacer (ex: a2): ";
-    std::string coordDep;
-    std::cin >> coordDep;
-
-    int yDep = letterToNumber(coordDep[0]);  
-    int xDep = 8 - (coordDep[1] - '0');
-
-
-    std::cout << "Entrez les coordonnées de la case d'arrivée (ex: a4): ";
-    std::string coordArr;
-    std::cin >> coordArr;
-
-    int yArr = letterToNumber(coordArr[0]);  
-    int xArr = 8 - (coordArr[1] - '0'); 
-
-
-	// Vérifie si la case de départ contient une pièce
-	if (board[xDep][yDep] == nullptr) {
-		std::cout << "Il n'y a pas de pièce à cet emplacement!" << std::endl;
-		return;
-	}
-
-	// Vérifie si la case d'arrivée contient une pièce de la même couleur
-	if (board[xArr][yArr] != nullptr && board[xDep][yDep]->getColor() == board[xArr][yArr]->getColor()) {
-		std::cout << "Vous ne pouvez pas déplacer votre pièce sur une case occupée par une de vos pièces!" << std::endl;
-		return;
-	}
-
-	//Verifie si un pion n'est pas sur le chemin
-	if (board[xDep][yDep]->getPieceSymbol() == 'T') {
-		if (xDep == xArr) {
-			if (yDep < yArr) {
-				for (int i = yDep + 1; i < yArr; i++) {
-					if (board[xDep][i] != nullptr) {
-						std::cout << "Il y a un pion sur le chemin!" << std::endl;
-						return;
-					}
-				}
-			}
-			else {
-				for (int i = yDep - 1; i > yArr; i--) {
-					if (board[xDep][i] != nullptr) {
-						std::cout << "Il y a un pion sur le chemin!" << std::endl;
-						return;
-					}
-				}
-			}
-		}
-		else if (yDep == yArr) {
-			if (xDep < xArr) {
-				for (int i = xDep + 1; i < xArr; i++) {
-					if (board[i][yDep] != nullptr) {
-						std::cout << "Il y a un pion sur le chemin!" << std::endl;
-						return;
-					}
-				}
-			}
-			else {
-				for (int i = xDep - 1; i > xArr; i--) {
-					if (board[i][yDep] != nullptr) {
-						std::cout << "Il y a un pion sur le chemin!" << std::endl;
-						return;
-					}
-				}
-			}
-		}
-	}
-
-	// Vérifie si la case de départ est la même que la case d'arrivée
-	if (xDep == xArr && yDep == yArr) {
-		std::cout << "Vous devez déplacer la pièce à un autre emplacement!" << std::endl;
-		return;
-	}
-
-	// Vérifie si les coordonnées sont valides
-	if (xDep < 0 || xDep > 7 || yDep < 0 || yDep > 7 || xArr < 0 || xArr > 7 || yArr < 0 || yArr > 7) {
-		std::cout << "Coordonnées invalides!" << std::endl;
-		return;
-	}
-	
-	// Vérifie si le déplacement est valide
-	if (!board[xDep][yDep]->isValidMove(xDep, yDep, xArr, yArr)) {
-		std::cout << "Déplacement invalide!" << std::endl;
-		return;
-	}
-	else
+	bool isGoodMove = false;
+	while (!isGoodMove)
 	{
-		// Déplace la pièce
-		std::cout << "Déplacement valide!" << std::endl;
-		board[xArr][yArr] = board[xDep][yDep];
-		board[xDep][yDep] = nullptr;
+		std::cout << "Entrez les coordonnées de la pièce à déplacer (ex: a2): ";
+		std::string coordDep;
+		std::cin >> coordDep;
+
+		int yDep = letterToNumber(coordDep[0]);
+		int xDep = 8 - (coordDep[1] - '0');
+
+
+		std::cout << "Entrez les coordonnées de la case d'arrivée (ex: a4): ";
+		std::string coordArr;
+		std::cin >> coordArr;
+
+		int yArr = letterToNumber(coordArr[0]);
+		int xArr = 8 - (coordArr[1] - '0');
+
+
+		// Vérifie si la case de départ contient une pièce
+		if (board[xDep][yDep] == nullptr) {
+#ifdef VERSION_LOG
+			std::cout << "Il n'y a pas de pièce à cet emplacement!" << std::endl;
+#endif
+		}
+
+		// Vérifie si la case d'arrivée contient une pièce de la même couleur
+		if (board[xArr][yArr] != nullptr && board[xDep][yDep]->getColor() == board[xArr][yArr]->getColor()) {
+#ifdef VERSION_LOG
+			std::cout << "Vous ne pouvez pas déplacer votre pièce sur une case occupée par une de vos pièces!" << std::endl;
+#endif
+		}
+
+		//Verifie si un pion n'est pas sur le chemin
+		if (board[xDep][yDep]->getPieceSymbol() == 'T') {
+			if (xDep == xArr) {
+				if (yDep < yArr) {
+					for (int i = yDep + 1; i < yArr; i++) {
+						if (board[xDep][i] != nullptr) {
+#ifdef VERSION_LOG
+							std::cout << "Il y a un pion sur le chemin!" << std::endl;
+#endif
+
+						}
+					}
+				}
+				else {
+					for (int i = yDep - 1; i > yArr; i--) {
+						if (board[xDep][i] != nullptr) {
+#ifdef VERSION_LOG
+							std::cout << "Il y a un pion sur le chemin!" << std::endl;
+#endif
+
+						}
+					}
+				}
+			}
+			else if (yDep == yArr) {
+				if (xDep < xArr) {
+					for (int i = xDep + 1; i < xArr; i++) {
+						if (board[i][yDep] != nullptr) {
+#ifdef VERSION_LOG
+							std::cout << "Il y a un pion sur le chemin!" << std::endl;
+#endif
+
+						}
+					}
+				}
+				else {
+					for (int i = xDep - 1; i > xArr; i--) {
+						if (board[i][yDep] != nullptr) {
+#ifdef VERSION_LOG
+							std::cout << "Il y a un pion sur le chemin!" << std::endl;
+#endif
+
+						}
+					}
+				}
+			}
+		}
+
+		// Vérifie si la case de départ est la même que la case d'arrivée
+		if (xDep == xArr && yDep == yArr) {
+#ifdef VERSION_LOG
+			std::cout << "Vous devez déplacer la pièce à un autre emplacement!" << std::endl;
+#endif
+
+		}
+
+		// Vérifie si les coordonnées sont valides
+		if (xDep < 0 || xDep > 7 || yDep < 0 || yDep > 7 || xArr < 0 || xArr > 7 || yArr < 0 || yArr > 7) {
+#ifdef VERSION_LOG
+			std::cout << "Coordonnées invalides!" << std::endl;
+#endif
+
+		}
+
+		// Vérifie si le déplacement est valide
+		if (!board[xDep][yDep]->isValidMove(xDep, yDep, xArr, yArr)) {
+#ifdef VERSION_LOG
+			std::cout << "Déplacement invalide!" << std::endl;
+#endif
+		}
+		else
+		{
+			// Déplace la pièce
+			std::cout << "Déplacement valide!" << std::endl;
+			board[xArr][yArr] = board[xDep][yDep];
+			board[xDep][yDep] = nullptr;
+			isGoodMove = true;
+		}
 	}
 }
-
 
 int Board::letterToNumber(char letter)
 {
