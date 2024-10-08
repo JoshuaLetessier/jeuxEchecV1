@@ -20,7 +20,9 @@ Board::~Board()
 {
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
-			delete board[y][x];  // Libère la mémoire pour chaque pièce
+			if (board[y][x] != nullptr) {
+				delete board[y][x];  // Libère toutes les pièces restantes
+			}
 		}
 	}
 }

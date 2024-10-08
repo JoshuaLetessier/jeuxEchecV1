@@ -72,6 +72,11 @@ void Game::play()
 			if (movementValidator->Excute(moves.first.first, moves.first.second, moves.second.first, moves.second.second, board->board, currentPlayer))
 			{
 				switchPlayer();
+				if (board->board[moves.second.first][moves.second.second] != nullptr) {
+					delete board->board[moves.second.first][moves.second.second];  // Libère la mémoire de la pièce capturée
+				}
+				board->board[moves.second.first][moves.second.second] = board->board[moves.first.first][moves.first.second];
+				board->board[moves.first.first][moves.first.second] = nullptr;
 				isGoodMove = true;
 			}
 			else

@@ -6,7 +6,7 @@ Roi::Roi()
 Roi::~Roi()
 {}
 
-bool Roi::isValidMove(int xDep, int yDep, int xArr, int yArr)
+bool Roi::isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* /*unused*/[8][8])
 {
 	// Vérifie si le déplacement est valide pour un roi
 	int direction = (getColor() == 'B') ? 1 : -1;

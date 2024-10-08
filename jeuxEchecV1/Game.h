@@ -4,6 +4,7 @@
 #include "DrawBoard.h"
 #include "InputHandler.h"
 #include "MovementValidator.h"
+#include <vector>
 
 
 class Game

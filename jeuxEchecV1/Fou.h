@@ -6,7 +6,7 @@ class Fou :
 public:
 	Fou();
 	~Fou();
-	bool isValidMove(int xDep, int yDep, int xArr, int yArr) override;
+	bool isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* board[8][8]) override;
 
 	char getPieceSymbol() const override { return 'F'; }
 };

@@ -6,7 +6,7 @@ public:
 	Roi();
 	~Roi();
 
-	bool isValidMove(int xDep, int yDep, int xArr, int yArr);
+	bool isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* /*unused*/[8][8]);
 
 	char getPieceSymbol() const override { return 'K'; }
 

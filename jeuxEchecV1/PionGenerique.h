@@ -6,7 +6,7 @@ public:
 	PionGenerique() {};
 	virtual ~PionGenerique() {};
 
-	virtual bool isValidMove(int xDep, int yDep, int xArr, int yArr) = 0;
+	virtual bool isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* board[8][8]) = 0;
 
 	virtual char getPieceSymbol() const = 0;
 

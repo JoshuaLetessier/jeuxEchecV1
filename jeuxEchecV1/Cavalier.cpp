@@ -9,7 +9,7 @@ Cavalier::~Cavalier()
 {
 }
 
-bool Cavalier::isValidMove(int xDep, int yDep, int xArr, int yArr)
+bool Cavalier::isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* /*unused*/[8][8])
 {
 	if ((abs(xDep - xArr) == 2 && abs(yDep - yArr) == 1) || (abs(xDep - xArr) == 1 && abs(yDep - yArr) == 2))
 	{

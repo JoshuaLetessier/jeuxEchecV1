@@ -8,7 +8,7 @@ Pion::~Pion()
 {
 }
 
-bool Pion::isValidMove(int xDep, int yDep, int xArr, int yArr)
+bool Pion::isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* board[8][8])
 {
 	// Vérifie si le déplacement est valide pour un pion
     int direction = (getColor() == 'B') ? 1 : -1;
@@ -20,7 +20,7 @@ bool Pion::isValidMove(int xDep, int yDep, int xArr, int yArr)
     }
 
 	// Mouvement en diagonale pour manger une pièce
-    if (xArr == xDep + direction && (yArr == yDep + 1 || yArr == yDep - 1) ){
+    if (xArr == xDep + direction && (yArr == yDep + 1 || yArr == yDep - 1) && board[xArr][yArr]->getColor() != board[xDep][yDep]->getColor()) {
 		return true;
     }
 

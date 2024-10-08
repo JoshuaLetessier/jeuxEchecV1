@@ -9,7 +9,7 @@ Reine::~Reine()
 {
 }
 
-bool Reine::isValidMove(int xDep, int yDep, int xArr, int yArr)
+bool Reine::isValidMove(int xDep, int yDep, int xArr, int yArr, PionGenerique* /*unused*/[8][8])
 {
 	// Mouvement vertical
 	if (xDep == xArr && yDep != yArr) {

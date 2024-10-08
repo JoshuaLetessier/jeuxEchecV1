@@ -10,5 +10,6 @@ public:
 	void initBoard();
 
 	PionGenerique* board[8][8];
+
 };
 
